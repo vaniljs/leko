@@ -100,9 +100,8 @@ export default class App extends Component {
 
     sortColumn = (e) => {
         let dataHave = this.state.json;
-        let nameSort = e.target.dataset.name;
-
-        if (e.target.dataset.name === this.state.sortColumn && this.state.sortNormal) {
+        let nameSort = e.currentTarget.dataset.name;
+        if (e.currentTarget.dataset.name === this.state.sortColumn && this.state.sortNormal) {
             dataHave.sort(function (a, b) {if (a[nameSort] > b[nameSort]) {return -1}});
             this.setState({
                 sortColumn: nameSort,
@@ -117,8 +116,6 @@ export default class App extends Component {
                 sortNormal: true
             })
         }
-        console.log(this.state.sortNormal);
-        console.log(this.state.sortColumn);
     };
 
     componentDidMount() {
@@ -217,10 +214,10 @@ export default class App extends Component {
                                 data-name="id"
                                 onClick={this.sortColumn}>
                                 {sortColumn === "id" ? (
-                                    <img
-                                        src="img/arrow.svg"
-                                        alt=""
-                                        className={sortNormal ? '' : "sort_reverse"}/>
+                                <img
+                                    src="img/arrow.svg"
+                                    alt=""
+                                    className={sortNormal ? '' : "sort_reverse"}/>
                                 ) : false}
                                 #
                             </th>
