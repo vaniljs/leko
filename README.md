@@ -1,17 +1,18 @@
-# leko
+# Game of Throne database generator
 
- Посмотреть [Demo](http://эваполимер.рф/game-of-thrones/) <br>
- Скачать итоговую сборку Prodaction  [Download](https://github.com/vaniljs/leko/raw/master/game-of-throne.rar) <br> 
+Interface for adding, deleting, and sorting users, based on the characters in the novel "A Song of Ice and Fire»
+
+ [Demo](http://эваполимер.рф/game-of-thrones/) <br>
 
 
 <ul>
-<li>Оформление с помощью Bootstrap</li>
-<li>Добавление записей</li>
-<li>Удаление записей</li>
-<li>Поиск по колонке</li>
-<li>Общий поиск</li>
-<li>Сортировка данных по колонкам</li>
-<li><i>*Соединение с помощью Fetch API и промисов с базой данных mySQL с помощью php библиотеки  <a href="https://redbeanphp.com/index.php" target="_blank">RedBeanPHP</a> с отключением политики CORS</i></li>
+<li>Design using Bootstrap</li>
+<li>Adding entries</li>
+<li>Deleting records</li>
+<li>Search column by column</li>
+<li>General search</li>
+<li>Sorting data by column</li>
+<li><i>*Connecting using the Fetch API and promis to a mySQL database using the php library <a href="https://redbeanphp.com/index.php" target= "_blank">RedBeanPHP</a> with disabling the CORS policy</i></li>
 </ul>
 
-![design template](screenshot.png)
+![design template](screenshot2.png)

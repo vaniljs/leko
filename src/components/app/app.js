@@ -12,14 +12,6 @@ export default class App extends Component {
             json: [],
             sortNormal: true,
             sortColumn: 'id',
-            search: {
-                search_all: "",
-                search_name: "",
-                search_description: "",
-                search_reason_murder: "",
-                search_killer: "",
-                search_weapon: ""
-            }
         };
     }
 
@@ -41,40 +33,6 @@ export default class App extends Component {
             })
             .catch(err => console.log(err));
     }
-
-
-    onSearchChange = ({ target: { name, value } }) => {
-        console.log(11)
-        /*this.setState(
-            ({ search }) => ({
-                search: {
-                    ...search,
-                    [name]: value.toLowerCase()
-                }
-            }),
-            this.search
-        );*/
-    };
-
-    search = () => {
-        this.setState(state => {
-            const search = Object.entries(state.search).filter(n => n[1]);
-
-            return {
-                filteredData: search.length
-                    ? state.data.filter(dataItem => {
-                        return search.every(([k, v]) => {
-                            return k === "all"
-                                ? state.metaData.some(m =>
-                                    `${dataItem[m.name]}`.toLowerCase().includes(v)
-                                )
-                                : `${dataItem[k]}`.toLowerCase().includes(v);
-                        });
-                    })
-                    : state.data
-            };
-        });
-    };
 
     addPerson = (e) => {
         e.preventDefault();
@@ -202,13 +160,6 @@ export default class App extends Component {
                             </div>
                         </div>
                     </form>
-                    <div className="col-md-3 col-sm-12 mt-5">
-                        <Input
-                            name="search_all"
-                            clas="form-control"
-                            placehold="Общий поиск"
-                            onSearchChange={this.onSearchChange}/>
-                    </div>
                     <table className="table table-responsive table-hover table-dark text-center mt-2">
                         <thead>
                         <tr>
@@ -288,45 +239,6 @@ export default class App extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">
-                                <Input
-                                    name="search_name"
-                                    clas="form-control"
-                                    placehold="Поиск"
-                                    onSearchChange={this.onSearchChange}/>
-                            </th>
-                            <th scope="col">
-                                <Input
-                                    name="search_description"
-                                    clas="form-control"
-                                    placehold="Поиск"
-                                    onSearchChange={this.onSearchChange}/>
-                            </th>
-                            <th scope="col">
-                                <Input
-                                    name="search_reason_murder"
-                                    clas="form-control"
-                                    placehold="Поиск"
-                                    onSearchChange={this.onSearchChange}/>
-                            </th>
-                            <th scope="col">
-                                <Input
-                                    name="search_killer"
-                                    clas="form-control"
-                                    placehold="Поиск"
-                                    onSearchChange={this.onSearchChange}/>
-                            </th>
-                            <th scope="col">
-                                <Input
-                                    name="search_weapon"
-                                    clas="form-control"
-                                    placehold="Поиск"
-                                    onSearchChange={this.onSearchChange}/>
-                            </th>
-                            <th scope="col"></th>
-                        </tr>
                         {data.map(item => (
                             <tr key={item.id}>
                                 <th>{item.id}</th>
