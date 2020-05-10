@@ -11,7 +11,15 @@ export default class App extends Component {
             data: [],
             json: [],
             sortNormal: true,
-            sortColumn: 'id'
+            sortColumn: 'id',
+            search: {
+                search_all: "",
+                search_name: "",
+                search_description: "",
+                search_reason_murder: "",
+                search_killer: "",
+                search_weapon: ""
+            }
         };
     }
 
@@ -30,10 +38,43 @@ export default class App extends Component {
                     data: json,
                     json: json
                 });
-                this.dataSearch();
             })
             .catch(err => console.log(err));
     }
+
+
+    onSearchChange = ({ target: { name, value } }) => {
+        console.log(11)
+        /*this.setState(
+            ({ search }) => ({
+                search: {
+                    ...search,
+                    [name]: value.toLowerCase()
+                }
+            }),
+            this.search
+        );*/
+    };
+
+    search = () => {
+        this.setState(state => {
+            const search = Object.entries(state.search).filter(n => n[1]);
+
+            return {
+                filteredData: search.length
+                    ? state.data.filter(dataItem => {
+                        return search.every(([k, v]) => {
+                            return k === "all"
+                                ? state.metaData.some(m =>
+                                    `${dataItem[m.name]}`.toLowerCase().includes(v)
+                                )
+                                : `${dataItem[k]}`.toLowerCase().includes(v);
+                        });
+                    })
+                    : state.data
+            };
+        });
+    };
 
     addPerson = (e) => {
         e.preventDefault();
@@ -56,46 +97,7 @@ export default class App extends Component {
             isLoaded: false
         });
         this.connect({'del': {'id': e.target.id}});
-        this.dataSearch;
-    };
-
-    dataSearch = (name, value) => {
-        let dataHave = this.state.json;
-        let filteredData = [];
-        let columnForSearch = "";
-        if (value) {
-            dataHave.forEach((item) => {
-                    switch (name) {
-                        case 'search_all':
-                            columnForSearch = item;
-                            break;
-                        case 'search_name':
-                            columnForSearch = item.name;
-                            break;
-                        case 'search_description':
-                            columnForSearch = item.description;
-                            break;
-                        case 'search_reason_murder':
-                            columnForSearch = item.reason_murder;
-                            break;
-                        case 'search_killer':
-                            columnForSearch = item.killer;
-                            break;
-                        case 'search_weapon':
-                            columnForSearch = item.weapon;
-                            break;
-                        default:
-                            columnForSearch = '';
-                            break
-                    }
-                    JSON.stringify(columnForSearch).toUpperCase().indexOf(value.toUpperCase()) > -1 ? filteredData.push(item) : false
-
-                }
-            );
-            this.setState({
-                data: filteredData
-            })
-        }
+        this.onSearchChange;
     };
 
     sortColumn = (e) => {
@@ -205,7 +207,7 @@ export default class App extends Component {
                             name="search_all"
                             clas="form-control"
                             placehold="Общий поиск"
-                            dataSearch={this.dataSearch}/>
+                            onSearchChange={this.onSearchChange}/>
                     </div>
                     <table className="table table-responsive table-hover table-dark text-center mt-2">
                         <thead>
@@ -293,35 +295,35 @@ export default class App extends Component {
                                     name="search_name"
                                     clas="form-control"
                                     placehold="Поиск"
-                                    dataSearch={this.dataSearch}/>
+                                    onSearchChange={this.onSearchChange}/>
                             </th>
                             <th scope="col">
                                 <Input
                                     name="search_description"
                                     clas="form-control"
                                     placehold="Поиск"
-                                    dataSearch={this.dataSearch}/>
+                                    onSearchChange={this.onSearchChange}/>
                             </th>
                             <th scope="col">
                                 <Input
                                     name="search_reason_murder"
                                     clas="form-control"
                                     placehold="Поиск"
-                                    dataSearch={this.dataSearch}/>
+                                    onSearchChange={this.onSearchChange}/>
                             </th>
                             <th scope="col">
                                 <Input
                                     name="search_killer"
                                     clas="form-control"
                                     placehold="Поиск"
-                                    dataSearch={this.dataSearch}/>
+                                    onSearchChange={this.onSearchChange}/>
                             </th>
                             <th scope="col">
                                 <Input
                                     name="search_weapon"
                                     clas="form-control"
                                     placehold="Поиск"
-                                    dataSearch={this.dataSearch}/>
+                                    onSearchChange={this.onSearchChange}/>
                             </th>
                             <th scope="col"></th>
                         </tr>
@@ -351,3 +353,4 @@ export default class App extends Component {
         }
     }
 };
+

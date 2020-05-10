@@ -11,7 +11,7 @@ export default class Input extends Component {
         error: true
     };
     dataSearch = (e) => {
-        this.props.dataSearch(e.target.name, e.target.value);
+       this.props.onSearchChange(e.target.name, e.target.value);
     };
     render() {
         let {place, name, val, type} = this.state;
